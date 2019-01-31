@@ -8,18 +8,39 @@
 
 <title>Insert title here</title>
 </head>
-<body>	
-	<form action="/" method="post">
-		<table border="1">
+<script type="text/javascript">
+			
+			
+			var checkflag = "false";
+			function check(field) {
+				if (checkflag == "false") {
+					for (i = 0; i < field.length; i++) {
+						field[i].checked = true;
+					}
+					checkflag = "true";
+					return "Check All";
+				} else {
+					for (i = 0; i < field.length; i++) {
+						field[i].checked = false;
+					}
+					checkflag = "false";
+					return "Check All";
+				}
+			}
+		
+</script>
+
+<body>
 	
+		<table border="1">
 				<tr>
-					<td>시작일 : <input type="date" name="start">~ 
-						종료일 : <input type="date" name="end">
+					<td>시작일 : <input type="date" name="start" id="startDate">~ 
+						종료일 : <input type="date" name="end" id = "endDate">
 					<td>
 				</tr>
 	
 				<tr>
-					<td>회사명 : <input type="checkbox" name="all" value="checkall" />전체선택
+					<td>회사명 : <input type="checkbox" name="Check All" onClick="this.value=check(this.form.company)" />전체선택
 						<input type="checkbox" name="company" value="company1" />회사1 
 						<input type="checkbox" name="company" value="company2" />회사2 
 						<input type="checkbox" name="company" value="company3" />회사3
@@ -55,7 +76,8 @@
 						<td colspan="6"> 데이터가 존재하지 않습니다 </td>
 					</tr>
 		</table>
-	</form>
+			
+	
 
 </body>
 </html>
