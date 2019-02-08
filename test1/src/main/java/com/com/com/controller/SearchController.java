@@ -3,25 +3,28 @@ package com.com.com.controller;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.com.com.vo.Member;
+
 @Controller
 public class SearchController {
 
-	@RequestMapping(value="/step2/check",method=RequestMethod.GET)
-	public String home(@RequestParam Map<String,Object> paramMap) {
+	@RequestMapping(value="/check")
+	public String search(Model model, Member mem) {
 		
 		return "search";
 	}
 	
-	@RequestMapping(value="/search",method=RequestMethod.POST)
-	public ModelAndView search(@RequestParam Map<String,String> ParamMap) {
-		
-		ModelAndView model = new ModelAndView();
-		model.setViewName("/step2/check");
+	@RequestMapping(value="/search")
+	public ModelAndView check(ModelAndView model, @RequestParam Map<String,String> ParamMap) {
+		System.out.println(ParamMap);
+		 
+		model.setViewName("/search");
 		model.addObject("paramMap",ParamMap);		
 		return model;
 	}
