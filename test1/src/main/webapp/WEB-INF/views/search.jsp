@@ -19,26 +19,6 @@ $( document ).ready(function() {
 	});
 });
 
-
-	/* 	var checkflag = false;
-		function check(field) {
-			if (!checkflag) {
-				for (i = 0; i < field.length; i++) {
-					field[i].checked = true;
-				}
-				checkflag = true;
-				return "companyall";
-			} else {
-				for (i = 0; i < field.length; i++) {
-					field[i].checked = false;
-				}
-				checkflag = "false";
-				return "companyall";
-			}
-		}
-		 */
-		
-		
 		function check2(){
 			if($("[name='companyall']").is(":checked")){
 				$("[name='company']").each(function(){
@@ -49,9 +29,7 @@ $( document ).ready(function() {
 					$(this).prop("checked",false);
 				});
 			}		
-		}
-		
-		
+		}		
 		function submit(){
 			var isSeasonChk = $("input:checkbox[name='company']").is(":checked");
 			
@@ -63,7 +41,33 @@ $( document ).ready(function() {
 			 $("#searchForm").submit();
 		}
 			
-			
+		function checkradio(){
+			var radio = $()
+		}
+		
+		
+		//
+		(
+				$.ajax({
+					url : "list",
+					type : "get",
+					dataType : "json",
+					data : {
+						"a" : srh,
+						"page" : page,
+						"rows" : rows,
+						"d" : d,
+						"send" : send
+					},
+					success : function(data) {
+						console.log(data);
+						
+					},
+					error : function() {
+						
+					}
+				});		
+		);	
 </script>
 
 <body>
@@ -78,16 +82,17 @@ $( document ).ready(function() {
 	
 				<tr>
 					<td> 회사명 : <input type="checkbox" name="companyall">전체선택 
-						<c:forEach items="${comList }" var="list" varStatus="i">
+						<c:forEach items="${comList}" var="list" varStatus="i">
 							<input type="checkbox" <c:if test="${list.cd eq 'A' }">checked="checked"</c:if>  name="company" value="${list.companycd}">${list.comName }
 						</c:forEach>
-					
-							<input type= "checkbox" >
+						  	<input type="checkbox" name="company" value="${list.comName1}">회사1
+						  	<input type="checkbox" name="company" value="${list.comName2}">회사2
+						  	<input type="checkbox" name="company" value="${list.comName3}">회사3
+							  	
+					  <%-- <c:forEach var="${comlist}" begin="" end="3" step="1">
+							${list}
+						</c:forEach>  --%>
 						
-						<%-- <c:forEach var="list2" begin="1" end="12" step="3">
-							${list2 }
-						</c:forEach>
-						 --%>
 					</td>
 				</tr>
 			
@@ -100,7 +105,7 @@ $( document ).ready(function() {
 				<tr>
 					<td>
 						삭제여부 : <input type="radio" name="delche" value="del">삭제
-							<input type="radio" name="delche" value="nodel">미삭제
+							<input type="radio" name="delche" value="nodel" checked="checked">미삭제
 						<input type="button" value ="검색" onclick="javascript:submit();"/>
 					</td>
 				</tr>
@@ -119,6 +124,11 @@ $( document ).ready(function() {
 				
 					<tr>
 						<th colspan="6"> 데이터가 존재하지 않습니다 </th>
+						<th>${paramMap.start}~${paramMap.end}</th>
+						<th>${list.comName1},${list.comName2},${list.comName3}</th>
+						<th></th>
+						<th></th>
+						<th></th>
 					</tr>
 		</table>
 			

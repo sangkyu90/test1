@@ -1,7 +1,10 @@
 package com.com.com.controller;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +16,15 @@ import com.com.com.vo.Member;
 
 @Controller
 public class SearchController {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	private void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	
+	
+	}
 
 	@RequestMapping(value="/check")
 	public String search(Model model, Member mem) {
@@ -28,6 +40,12 @@ public class SearchController {
 		model.addObject("paramMap",ParamMap);		
 		return model;
 	}
+	@RequestMapping(value = "/search1", method = RequestMethod.GET)
+	public String test(Model model, Member mem) {
+		("SQL.ProductCompany.testlist");
+		
+		
+		return "test";
 
 	
 

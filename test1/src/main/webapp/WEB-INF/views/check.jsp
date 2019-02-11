@@ -23,9 +23,9 @@
 				</tr>
 			
 				<tr>
-					<td>${paramMap.start}</td>
-					<td>zz</td>
-					<td>ss</td>
+					<td>${paramMap.start},${paramMap.end}</td>
+					<td></td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>

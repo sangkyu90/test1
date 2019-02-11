@@ -1,7 +1,10 @@
 package com.com.com.controller;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +16,9 @@ import com.com.com.vo.Member;
 
 @Controller
 public class MemberController {
+	
+	@Autowired
+	SqlSession sqlsession;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -35,4 +41,11 @@ public class MemberController {
 		return model;
 	}
 
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Model model, Member mem) {
+		List<String> list = sqlsession.selectList("SQL.ProductCompany.testlist");
+		System.out.println("list1 : " + list.get(0));
+		
+		return "test";
+	}
 }

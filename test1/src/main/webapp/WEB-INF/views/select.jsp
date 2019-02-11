@@ -7,11 +7,23 @@
 <meta charset="UTF-8" />
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+var selcet = '';
+	$.ajax({
+		type: "POST",
+		url : "/select.do",
+		sendDataType:"json",
+		async : false,
+		success : function(data){
+			select = data
+		}
+		
+	});
+</script>
 <body>
 	<table border="1">
 		<tr>
-			<td>회사  <select name="company" id="company"
-				onchange="company()">
+			<td>회사  <select id="company" name ="company" onchange="select(this.value)">
 					<option value="회사1">회사1</option>
 					<option value="회사2">회사2</option>
 					<option value="회사3">회사3</option>

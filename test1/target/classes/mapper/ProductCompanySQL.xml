@@ -3,66 +3,41 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SQL.ProductCompany">
-	<select id="getProductCompanyList" resultType="Product"
-		parameterType="Product">
-		select * from ProductCompany
-		WHERE 
-		<where>
-			<if test = "COMPANY_CD!=null">and COMPANY_CD = '%' ||#{COMPANY_CD}||'%'</if>
-			<if test = "COMPANY_NAME!=null">and TRIM(UPPER(COMPANY_NAME)) like '%' ||UPPER(#{COMPANY_NAME})||'%'</if>
-	 		<if test = "REG_DATE!=null">and REG_DATE like '%' ||#{REG_DATE}||'%'</if>
-	 		<if test = "REMARK!=null">and REMARK like '%' ||#{REMARK}||'%'</if>
-	 		<if test = "DEL_YN!=null">and DEL_YN</if>
-		</where>
-		order by COMPANY_CD
+	<select id="getProductCompanyList" resultType="product">
+		select
+		  PRODUCT_COMPANY.PRODUCT_COMPANY_CD
+		 ,PRODUCT_COMPANY.PRODUCT_COMPANY_NAME
+		 ,PRODUCT_COMPANY.PRODUCT_REG_DATE
+		 ,PRODUCT_COMPANY.PRODUCT_REMARK
+		 ,PRODUCT_COMPANY.PRODUCT_DEL_YN
+		 ,PRODUCT.PRODUCT_SEQ
+		 ,PRODUCT.PRODUCT_NAME
+		 ,PRODUCT.PRODUCT_COMPANY_CD
+		 ,PRODUCT.PRODUCT_REG_DATE
+		 ,PRODUCT.PRODUCT_REMARK
+		 ,PRODUCT.PRODUCT_DEL_YN
+			Where.PRODUCT_COMPANY_NAME = PRODUCT.PRODUCT_NAME;
+		
+		select * from PRODUCT_COMPANY where PRODUCT_COMPANY_NAME
+		
 		</select>
-		<insert id = "insertProductCompany" parameterType="product">
-		insert into PRODUCT_COMPANY(
-		COMPANY_CD
-		COMPANY_NAME
-		REG_DATE
-		REMARK
-		DEL_YN
+		<insert id="insertProductCompany" resultType="search">
+		Insert INTO PRODUCT_COMPANY(
+		,PRODUCT_COMPANY_CD
+		,PRODUCT_COMPANY_NAME
+		,PRODUCT_REG_DATE
+		,PRODUCT_REMARK
+		,PRODUCT_DEL_YN
 		)
 		values(
-		SEQ_Product_ProductNum.nextval,
-		#{COMPANY_CD},
-		#{COMPANY_NAME},
-		#{REG_DATE},
-		to_char(SYSDATE,'YYYY-MM-DD
-		HH24:mi:ss'),
-		#{REMARK},
-		#{DEL_YN},
-		)
+		#{PRODUCT_COMPANY_CD}
+		,#{PRODUCT_COMPANY_NAME}
+		,#{PRODUCT_REG_DATE}
+		,#{PRODUCT_REMARK}
+		,#{PRODUCT_DEL_YN})
 		</insert>
+		
 		<update id="updateProductCompany" parameterType="product">
-		update product
-		<set>
-			<if test="COMPANY_NAME!=null">COMPANY_NAME =
-				#{COMPANY_NAME}
-			</if>
-			<if test="productCategory!=null">ProductCategory =
-				#{productCategory},
-			</if>
-
-			<if test="REG_DATE!=null">ProductDate =
-				#{REG_DATE},
-			</if>
-			<if test="REMARK!=null">productEndDate =
-				#{REMARK},
-			</if>
-		
-			<if test="DEL_YN!=null">, ProductDesc =
-				${DEL_YN}
-			</if>
-			
-		</set>
-		where COMPANY_CD=#{COMPANY_CD}
+		update updateProductCompany
 		</update>
-		
-		<delete id="deleteProductCompany" parameterType="product">
-		delete from
-		product
-		where COMPANY_CD=#{COMPANY_CD}
-		</delete>
 	</mapper>

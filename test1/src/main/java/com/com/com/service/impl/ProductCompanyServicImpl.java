@@ -2,7 +2,6 @@ package com.com.com.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.com.com.dao.impl.ProductCompanyDAOImpl;

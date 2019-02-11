@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="step">
+<select id="steplist" resultType="step6">
+select name
+	,	hak
+	,	kor
+	,  eng
+	,  mat
+	,  pw
+from (
+select  name
+	,	hak
+	,	kor
+	,  eng
+	,  mat
+	,  pw
+	,  rownum nnum
+from	
+		(SELECT
+				<choose>
+				<when test="a != null and a != ''">
+				<![CDATA[
+		    	REPLACE(name,#{a},'<FONT COLOR="HOTPINK">'||#{a}||'</FONT>') name
+		    	]]>
+		    	</when>
+		    	<otherwise>
+		    	name
+		    	</otherwise>
+		    	</choose>
+		     ,	hak
+		     ,	kor
+		     ,  eng
+		     ,  mat
+		     ,  pw
+		FROM
+		    kjm_score
+		<if test="a != null and a != ''">
+		WHERE name like '%'||#{a}||'%'
+		</if>
+		<if test="d != null and d != ''">
+		order by ${send} ${d}
+		</if>
+		))
+where  nnum between 1 + #{rows}*(#{page} - 1) and #{rows}*(#{page}) 
+</select>
+
+
+<select id="curpaging" resultType="page">
+select count(*) records
+     , ceil(count(*)/#{rows}) total
+from   KJM_SCORE
+<if test="a != null and a != ''">
+WHERE name like '%'||#{a}||'%'
+</if>
+</select>
+
+<select id="chk" resultType="search">
+select 
+	   name
+	 , pw
+from
+	   (select 
+	   		   name
+	   		 , pw
+	   		 , rownum nnum
+		from KJM_SCORE
+		<if test="a != null and a != ''">
+		WHERE name like '%'||replace(replace(#{a},CHR(60)||'FONT COLOR="HOTPINK"'||CHR(62),''),CHR(60)||'/FONT'||CHR(62),'')||'%'
+		</if>
+		)
+where nnum <![CDATA[<]]>= 10
+</select>
+<select id="detail" resultType="step6">
+select 
+	   name
+	 , hak
+	 , kor
+	 , eng
+	 , mat
+	 , pw
+from 
+	   KJM_SCORE
+WHERE  name = #{a}
+</select>
+<update id="mod">
+update KJM_SCORE 
+set hak = #{hak}, kor = #{kor}, eng = #{eng}, mat = #{mat}, pw = #{pw} 
+where name = #{a}
+</update>
+<delete id="del">
+delete from KJM_SCORE where name = #{a}
+</delete>
+<insert id="ins">
+INSERT INTO kjm_score  VALUES (#{a}, #{hak}, #{kor}, #{eng}, #{mat}, #{pw})
+</insert>
+</mapper>
