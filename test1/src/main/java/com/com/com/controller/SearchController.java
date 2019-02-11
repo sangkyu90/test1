@@ -42,11 +42,9 @@ public class SearchController {
 	}
 	@RequestMapping(value = "/search1", method = RequestMethod.GET)
 	public String test(Model model, Member mem) {
-		("SQL.ProductCompany.testlist");
+	
 		
 		
 		return "test";
-
-	
-
+}
 }
