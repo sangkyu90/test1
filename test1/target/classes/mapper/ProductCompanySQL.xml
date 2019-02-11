@@ -21,20 +21,8 @@
 		select * from PRODUCT_COMPANY where PRODUCT_COMPANY_NAME
 		
 		</select>
-		<insert id="insertProductCompany" resultType="search">
-		Insert INTO PRODUCT_COMPANY(
-		,PRODUCT_COMPANY_CD
-		,PRODUCT_COMPANY_NAME
-		,PRODUCT_REG_DATE
-		,PRODUCT_REMARK
-		,PRODUCT_DEL_YN
-		)
-		values(
-		#{PRODUCT_COMPANY_CD}
-		,#{PRODUCT_COMPANY_NAME}
-		,#{PRODUCT_REG_DATE}
-		,#{PRODUCT_REMARK}
-		,#{PRODUCT_DEL_YN})
+		<insert id="insertProductCompany" parameterType="search">
+		
 		</insert>
 		
 		<update id="updateProductCompany" parameterType="product">
