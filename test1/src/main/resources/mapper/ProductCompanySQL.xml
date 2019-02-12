@@ -4,21 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SQL.ProductCompany">
 	<select id="getProductCompanyList" resultType="product">
-		select
-		  PRODUCT_COMPANY.PRODUCT_COMPANY_CD
-		 ,PRODUCT_COMPANY.PRODUCT_COMPANY_NAME
-		 ,PRODUCT_COMPANY.PRODUCT_REG_DATE
-		 ,PRODUCT_COMPANY.PRODUCT_REMARK
-		 ,PRODUCT_COMPANY.PRODUCT_DEL_YN
-		 ,PRODUCT.PRODUCT_SEQ
-		 ,PRODUCT.PRODUCT_NAME
-		 ,PRODUCT.PRODUCT_COMPANY_CD
-		 ,PRODUCT.PRODUCT_REG_DATE
-		 ,PRODUCT.PRODUCT_REMARK
-		 ,PRODUCT.PRODUCT_DEL_YN
-			Where.PRODUCT_COMPANY_NAME = PRODUCT.PRODUCT_NAME;
-		
-		select * from PRODUCT_COMPANY where PRODUCT_COMPANY_NAME
+		SELECT
+    num, name, cnt, remark , yn ,total
+FROM
+(select rownum num, cd, cnt, yn, total
+from 
+(select count(PRODUCT_COMPANY_CD) total
+from PRODUCT) a, 
+
+(select count(PRODUCT_COMPANY_CD) cnt, PRODUCT_COMPANY_CD cd, max(PRODUCT_DEL_YN) yn
+				
+from (select *
+from PRODUCT
+where PRODUCT_DEL_YN = 'N')
+
+group by PRODUCT_COMPANY_CD) b) abc, (select  (PRODUCT_COMPANY_NAME) name ,(PRODUCT_REMARK) remark, (PRODUCT_COMPANY_CD)cd
+from PRODUCT_COMPANY) bcd
+ where abc.cd = bcd.cd ;
 		
 		</select>
 		<insert id="insertProductCompany" parameterType="search">
@@ -26,6 +28,6 @@
 		</insert>
 		
 		<update id="updateProductCompany" parameterType="product">
-		update updateProductCompany
+		
 		</update>
 	</mapper>

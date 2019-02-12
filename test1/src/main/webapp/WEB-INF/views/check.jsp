@@ -14,22 +14,15 @@
 <body>
 	<table  border="1">
 				<tr>
-					<td>순번</td>
-					<td>회사명</td>
-					<td>등록된 상품수</td>
-					<td>비고</td>
+					<td>회사</td>
+					<td>상품명</td>
 					<td>삭제 여부</td>
-					<td>전체 건수</td>
+					<td>비고</td>
+					
+					
 				</tr>
 			
-				<tr>
-					<td>${paramMap.start},${paramMap.end}</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					
+	
 			</table>
 </body>
 </html>
