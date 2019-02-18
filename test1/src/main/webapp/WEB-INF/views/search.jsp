@@ -29,7 +29,7 @@ $( document ).ready(function() {
 					$(this).prop("checked",false);
 				});
 			}		
-		}		
+				
 		function submit(){
 			var isSeasonChk = $("input:checkbox[name='company']").is(":checked");
 			
@@ -47,7 +47,7 @@ $( document ).ready(function() {
 		
 		
 		//
-		(
+	
 				$.ajax({
 					url : "list",
 					type : "get",
@@ -66,8 +66,8 @@ $( document ).ready(function() {
 					error : function() {
 						
 					}
-				});		
-		);	
+				});	
+		});	
 </script>
 
 <body>
@@ -124,8 +124,8 @@ $( document ).ready(function() {
 				
 					<tr>
 						<th colspan="6"> 데이터가 존재하지 않습니다 </th>
-						<th>${paramMap.start}~${paramMap.end}</th>
-						<th>${list.comName1},${list.comName2},${list.comName3}</th>
+						<th></th>
+						<th></th>
 						<th></th>
 						<th></th>
 						<th></th>
